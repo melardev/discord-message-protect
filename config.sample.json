@@ -1,0 +1,32 @@
+{
+  "discord": {
+    "bot_token": "<bot-token>",
+    "app_id": "<app-id>",
+    "command_name": "protect"
+  },
+  "sessions": {
+    "ttl": 10
+  },
+  "http": {
+    "scheme": "http",
+    "hostname": "127.0.0.1",
+    "port": 9090,
+    "challenge_path": "/captcha",
+    "captcha_service": "google",
+    "args": {
+      "site_key": "<secret>",
+      "secret_key": "<secret>"
+    }
+  },
+  "secrets": {
+    "ttl": 30
+  },
+  "pollution": {
+    "strategy": "",
+    "args": {
+      "min_words": 3,
+      "max_words": 15,
+      "position": "trail"
+    }
+  }
+}
