@@ -28,7 +28,7 @@ func newIncrementalStrategy(dto map[string]interface{}) *IncrementalStrategy {
 	}
 }
 
-func (i *IncrementalStrategy) Apply(content string) (string, []string) {
+func (i *IncrementalStrategy) Apply(content string, username string, id string) (string, []string) {
 	newId := atomic.AddUint64(&counter, 1)
 	indicators := []string{
 		strconv.Itoa(int(newId)),

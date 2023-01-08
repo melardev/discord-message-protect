@@ -2,14 +2,23 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 )
 
 func main() {
-	args := Args{}
-	flag.StringVar(&args.ConfigPath, "config", "", "configuration file path")
-	flag.Parse()
 
-	app = GetApplication(&args)
+	switch os.Args[1] {
+	case "run":
+		args := RunArgs{}
+		flag.StringVar(&args.ConfigPath, "config", "", "configuration file path")
+		flag.Parse()
 
-	app.Run()
+		app = GetApplication(&args)
+
+		app.Run()
+	default:
+		fmt.Printf("Supported arguments: run")
+	}
+
 }

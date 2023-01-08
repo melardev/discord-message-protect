@@ -24,12 +24,24 @@ type RevealRequest struct {
 }
 
 type Secret struct {
-	Id        string
+	Id        uint   `gorm:"primarykey"`
+	SecretId  string `gorm:"uniqueIndex;size:36"`
 	Message   string
 	ChannelId string
-	CreatedAt time.Time
+	// used for the database column
+	UserName    string
+	User        *core.DiscordUser      `gorm:"-"`
+	MessageObj  *discordgo.Message     `gorm:"-"`
+	Interaction *discordgo.Interaction `gorm:"-"`
+	MessageId   string
+	CreatedAt   time.Time
+
 	UpdatedAt time.Time
-	User      *core.DiscordUser
+	ImageUrl  string
+}
+
+func (s *Secret) TableName() string {
+	return "secrets"
 }
 
 type CreateSecretDto struct {
@@ -38,10 +50,13 @@ type CreateSecretDto struct {
 	Message   string
 	ChannelId string
 	User      *discordgo.User
+	ImageUrl  string
 }
 
 type ISecretManager interface {
-	GetById(id string) *Secret
-	CreateOrUpdate(dto *CreateSecretDto) (*Secret, error)
-	Delete(id string)
+	GetById(id string) (*Secret, error)
+	Create(dto *CreateSecretDto) (*Secret, error)
+	Delete(id string) error
+	Update(secret *Secret) error
+	UpdateMessageId(secret *Secret) error
 }

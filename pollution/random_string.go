@@ -17,24 +17,46 @@ type RandomStringStrategy struct {
 }
 
 func (f *RandomStringStrategy) GetName() string {
-	return FakerStrategyName
+	return RandomString
 }
 
-type CreateRandomStringStrategyDto struct {
-	Position IndicatorPosition
-	MinWords int
-	MaxWords int
-}
-
-func newRandomStringStrategy(dto *CreateRandomStringStrategyDto) *RandomStringStrategy {
-	return &RandomStringStrategy{
-		Position: dto.Position,
-		MinWords: dto.MinWords,
-		MaxWords: dto.MaxWords,
+func newRandomStringStrategy(dto map[string]interface{}) *RandomStringStrategy {
+	minWords := 0
+	if val, ok := dto["min_words"].(float64); ok {
+		minWords = int(val)
+	} else if val2, ok := dto["min_words"].(int); ok {
+		minWords = val2
 	}
+
+	maxWords := 0
+	if val, ok := dto["max_words"].(float64); ok {
+		maxWords = int(val)
+	} else if val2, ok := dto["max_words"].(int); ok {
+		maxWords = val2
+	}
+
+	var position IndicatorPosition
+	if pos, ok := dto["position"].(int); ok {
+		position = IndicatorPosition(pos)
+	} else if pos2, ok2 := dto["position"].(string); ok2 {
+		position = IndicatorPosition(pos2)
+	} else if pos3, ok3 := dto["position"].(IndicatorPosition); ok3 {
+		position = pos3
+	} else {
+		panic("Unknown value type for position")
+	}
+
+	return &RandomStringStrategy{
+		Position:   position,
+		MinWords:   minWords,
+		MaxWords:   maxWords,
+		MinWordLen: 3,
+		MaxWordLen: 6,
+	}
+
 }
 
-func (f *RandomStringStrategy) Apply(content string) (string, []string) {
+func (f *RandomStringStrategy) Apply(content string, username string, id string) (string, []string) {
 	indicators := f.GetIndicators()
 
 	if f.Position == Beginning {

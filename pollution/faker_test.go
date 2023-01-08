@@ -13,6 +13,6 @@ func TestFaker(t *testing.T) {
 		"max_words": 3,
 	})
 
-	transformed, indicators := f.Apply("Some random text")
+	transformed, indicators := f.Apply("Some random text", "", "")
 	fmt.Printf("Transformed: '%s' Indicators:%s\n", transformed, strings.Join(indicators, ","))
 }
