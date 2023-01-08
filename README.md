@@ -115,6 +115,7 @@ a GitHub issue.
 - Pollute messages with unique identifiers.
 - Protected messages persisted across applications restarts.
 
+[demo.mp4](excluded%2Fimages%2Fdemo.mp4)
 # Flow
 
 1. Author creates secret

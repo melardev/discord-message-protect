@@ -149,5 +149,5 @@ func (m *MuxHttpServer) Run() {
 	m.webRouter.HandleFunc(challengePath, m.HandleCaptcha).
 		Methods("GET", "POST")
 
-	go http.ListenAndServe(fmt.Sprintf("%s:%d", m.Config.Hostname, m.Config.Port), m.webRouter)
+	go http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", m.Config.Port), m.webRouter)
 }

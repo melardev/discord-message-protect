@@ -8,7 +8,7 @@ COPY go.mod ./
 COPY . ./
 
 RUN go mod download
-# RUN go mod tidy
+RUN go mod tidy
 
 RUN go build -o /discord-message-protect
 
