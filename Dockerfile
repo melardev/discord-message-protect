@@ -3,7 +3,6 @@ FROM golang:1.19.4 AS build
 WORKDIR /app
 
 COPY go.mod ./
-COPY go.sum ./
 
 # COPY *.go ./
 COPY . ./

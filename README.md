@@ -72,9 +72,11 @@ $ cp config_sample.json config.json
    greater filesystem speed (faster database access for our application), but I don't think you really need it.
    https://www.youtube.com/watch?v=uXDlnEUow0A&ab_channel=OdooMates
 9. Access our server via SSH as the video shows.
-10. This bot is shipped as Docker container app, deployed through docker-compose, so we must install `docker-compose` as
+10. This bot is shipped as Docker container app, deployed through docker-compose, so we must install `docker` and `docker-compose` as
     explained
-    on https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
+    on:
+    - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+    - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
 11. Create the following two directories, one will be for the database, the other for the app logs itself:
 
 ```bash
