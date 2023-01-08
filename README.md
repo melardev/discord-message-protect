@@ -111,11 +111,13 @@ a GitHub issue.
 # Features
 
 - Protect messages requiring user to click to reveal the message.
+https://user-images.githubusercontent.com/18094815/211220966-d6fb113e-a9d4-4c69-8c5c-5356f6664223.mp4
 - Protect with captcha.
+  https://user-images.githubusercontent.com/18094815/211220976-0e770103-c56e-4eb3-9e5c-0b6822d6227a.mp4
 - Pollute messages with unique identifiers.
+  https://user-images.githubusercontent.com/18094815/211220979-24df4112-b2be-4f8f-ba57-0fc90c7ea583.mp4
 - Protected messages persisted across applications restarts.
 
-[demo.mp4](excluded%2Fimages%2Fdemo.mp4)
 # Flow
 
 1. Author creates secret
