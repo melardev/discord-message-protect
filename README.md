@@ -72,7 +72,8 @@ $ cp config_sample.json config.json
    greater filesystem speed (faster database access for our application), but I don't think you really need it.
    https://www.youtube.com/watch?v=uXDlnEUow0A&ab_channel=OdooMates
 9. Access our server via SSH as the video shows.
-10. This bot is shipped as Docker container app, deployed through docker-compose, so we must install `docker` and `docker-compose` as
+10. This bot is shipped as Docker container app, deployed through docker-compose, so we must install `docker`
+    and `docker-compose` as
     explained
     on:
     - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
@@ -111,11 +112,11 @@ a GitHub issue.
 # Features
 
 - Protect messages requiring user to click to reveal the message.
-https://user-images.githubusercontent.com/18094815/211220966-d6fb113e-a9d4-4c69-8c5c-5356f6664223.mp4
+  [video](https://user-images.githubusercontent.com/18094815/211220966-d6fb113e-a9d4-4c69-8c5c-5356f6664223.mp4)
 - Protect with captcha.
-  https://user-images.githubusercontent.com/18094815/211220976-0e770103-c56e-4eb3-9e5c-0b6822d6227a.mp4
+  [video]https://user-images.githubusercontent.com/18094815/211220976-0e770103-c56e-4eb3-9e5c-0b6822d6227a.mp4)
 - Pollute messages with unique identifiers.
-  https://user-images.githubusercontent.com/18094815/211220979-24df4112-b2be-4f8f-ba57-0fc90c7ea583.mp4
+  [video](https://user-images.githubusercontent.com/18094815/211220979-24df4112-b2be-4f8f-ba57-0fc90c7ea583.mp4)
 - Protected messages persisted across applications restarts.
 
 # Flow
