@@ -6,11 +6,13 @@ type Config struct {
 	AppPath string `json:"app_path"`
 	LogPath string `json:"log_path"`
 
-	HttpConfig      *HttpConfig      `json:"http"`
-	DiscordConfig   *DiscordConfig   `json:"discord"`
-	SecretsConfig   *SecretsConfig   `json:"secrets"`
-	SessionsConfig  *SessionsConfig  `json:"sessions"`
-	PollutionConfig *PollutionConfig `json:"pollution"`
+	HttpConfig                  *HttpConfig      `json:"http"`
+	DiscordConfig               *DiscordConfig   `json:"discord"`
+	SecretsConfig               *SecretsConfig   `json:"secrets"`
+	SessionsConfig              *SessionsConfig  `json:"sessions"`
+	PollutionConfig             *PollutionConfig `json:"pollution"`
+	DatabaseConfig              *DatabaseConfig  `json:"database"`
+	AckActionOnProtectedMessage bool
 }
 
 type HttpConfig struct {
@@ -58,4 +60,11 @@ type PollutionConfig struct {
 	StrategyName string `json:"strategy"`
 	// Args is used to pass arguments specific to each implementation
 	Args map[string]interface{} `json:"args"`
+}
+
+type DatabaseConfig struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Hostname string `json:"hostname"`
+	Port     int    `json:"port"`
 }

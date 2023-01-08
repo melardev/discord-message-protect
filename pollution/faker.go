@@ -32,7 +32,7 @@ func newFakerStrategy(dto map[string]interface{}) *FakerStrategy {
 	}
 
 	maxWords := 0
-	if val, ok := dto["min_words"].(float64); ok {
+	if val, ok := dto["max_words"].(float64); ok {
 		maxWords = int(val)
 	} else if val2, ok := dto["max_words"].(int); ok {
 		maxWords = val2
@@ -41,8 +41,10 @@ func newFakerStrategy(dto map[string]interface{}) *FakerStrategy {
 	var position IndicatorPosition
 	if pos, ok := dto["position"].(int); ok {
 		position = IndicatorPosition(pos)
-	} else if pos2, ok2 := dto["position"].(IndicatorPosition); ok2 {
-		position = pos2
+	} else if pos2, ok2 := dto["position"].(string); ok2 {
+		position = IndicatorPosition(pos2)
+	} else if pos3, ok3 := dto["position"].(IndicatorPosition); ok3 {
+		position = pos3
 	} else {
 		panic("Unknown value type for position")
 	}
@@ -68,7 +70,7 @@ func StringToPosition(position string) IndicatorPosition {
 	panic("Unknown argument " + position)
 }
 
-func (f *FakerStrategy) Apply(content string) (string, []string) {
+func (f *FakerStrategy) Apply(content string, username string, id string) (string, []string) {
 	indicators := f.GetIndicators()
 
 	if f.Position == Beginning {

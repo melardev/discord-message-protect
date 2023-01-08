@@ -2,8 +2,8 @@ package secrets
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/melardev/discord-message-protect/core"
-	"github.com/melardev/discord-message-protect/utils"
 	"sync"
 	"time"
 )
@@ -41,12 +41,12 @@ func (s *InMemorySecretManager) CreateOrUpdate(dto *CreateSecretDto) (*Secret, e
 	var secret *Secret
 	s.SecretMutex.Lock()
 	for {
-		secretId := utils.GetRandomString(32)
+		secretId := uuid.Must(uuid.NewRandom()).String()
 		if _, found := s.Secrets[secretId]; !found {
 			secret = &Secret{
-				Id: secretId,
+				SecretId: secretId,
 				User: &core.DiscordUser{
-					Id:       dto.User.ID,
+					Id:       dto.User.Discriminator,
 					Username: dto.User.Username,
 				},
 				Message:   dto.Message,

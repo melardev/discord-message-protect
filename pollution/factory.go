@@ -22,6 +22,11 @@ func GetPollutionStrategy(strategyName string, args map[string]interface{}) IPol
 			instances[strategyName] = instance
 			instancesMutex.Unlock()
 			return instance
+		case RandomString:
+			instance = newRandomStringStrategy(args)
+			instances[strategyName] = instance
+			instancesMutex.Unlock()
+			return instance
 		default:
 			instancesMutex.Unlock()
 		}

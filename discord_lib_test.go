@@ -32,6 +32,102 @@ func TestSendEphemeralInteraction(t *testing.T) {
 
 }
 
+func TestListenOnMessageDetectInteraction(t *testing.T) {
+	db, err := discordgo.New("Bot " + os.Getenv("DISCORD_TOKEN"))
+	onMessageCreated := func(s *discordgo.Session, m *discordgo.MessageCreate) {
+		// Nothing for now
+
+		err := s.ChannelMessageDelete(m.ChannelID, m.ID)
+		for _, c := range m.Components {
+			if actionRow, ok := c.(*discordgo.ActionsRow); ok {
+				for _, c2 := range actionRow.Components {
+					if button, ok2 := c2.(*discordgo.Button); ok2 {
+						if strings.HasPrefix(button.CustomID, "btn_unlock_") {
+
+						}
+					}
+				}
+			}
+		}
+
+		if err != nil {
+			panic(err)
+		}
+
+	}
+	if err != nil {
+		panic(err)
+	}
+
+	appId := "1032609488563355678"
+	guildId := ""
+	db.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
+		log.Println("Bot is up!")
+	})
+
+	protectCommand := func(sess *discordgo.Session, i *discordgo.InteractionCreate) {
+		_, err = sess.ChannelMessageSendComplex(i.ChannelID, &discordgo.MessageSend{
+			Content: "Click to Unlock Message",
+			Components: []discordgo.MessageComponent{
+				discordgo.ActionsRow{
+					Components: []discordgo.MessageComponent{
+						discordgo.Button{
+							Label:    "Click to Unlock",
+							CustomID: "unlock_btn",
+							Style:    discordgo.PrimaryButton,
+							Disabled: false,
+							Emoji: discordgo.ComponentEmoji{
+								Name:     "🔒",
+								Animated: false,
+							},
+						},
+					},
+				},
+			},
+		})
+
+		if err != nil {
+			panic(err)
+		}
+
+	}
+
+	// Components are part of interactions, so we register InteractionCreate handler
+	db.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		switch i.Type {
+		case discordgo.InteractionApplicationCommand:
+			if i.ApplicationCommandData().Name == "protect" {
+				protectCommand(s, i)
+			}
+		case discordgo.InteractionMessageComponent:
+			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+				Type: discordgo.InteractionResponsePong,
+			})
+		}
+	})
+
+	db.AddHandler(onMessageCreated)
+	_, err = db.ApplicationCommandCreate(appId, guildId, &discordgo.ApplicationCommand{
+		Name:        "buttons",
+		Description: "Test the buttons if you got courage",
+	})
+
+	if err != nil {
+		log.Fatalf("Cannot create slash command: %v", err)
+	}
+
+	err = db.Open()
+	if err != nil {
+		log.Fatalf("Cannot open the session: %v", err)
+	}
+	defer db.Close()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	<-stop
+	log.Println("Graceful shutdown")
+}
+
 func TestButtonInteraction(t *testing.T) {
 	// https://discord.com/api/oauth2/authorize?client_id=1032609488563355678&permissions=8&scope=bot
 	s, err := discordgo.New("Bot " + os.Getenv("DISCORD_TOKEN"))
